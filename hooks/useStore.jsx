@@ -1,6 +1,7 @@
+import { nanoid } from 'nanoid';
 import create from 'zustand';
 
-const useStore = create(set => {
+const useStore = create((set, get) => {
   return {
     blogposts: [
       {
@@ -18,12 +19,26 @@ const useStore = create(set => {
         created: new Date(),
       },
     ],
+    activePost: null,
     addBlogpost: newPost => {
+      const id = nanoid();
       set(state => {
         return {
-          blogposts: [...state.blogposts, newPost],
+          blogposts: [
+            ...state.blogposts,
+            { id, ...newPost, created: new Date() },
+          ],
         };
       });
+      return id;
+    },
+    setActivePost: id => {
+      set(state => {
+        return {
+          activePost: state.blogposts.find(blogpost => blogpost.id === id),
+        };
+      });
+      return get().activePost;
     },
   };
 });

@@ -1,6 +1,6 @@
 import { Typography } from '@mui/material';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Blogpost from '../../components/Blogpost';
 import useStore from '../../hooks/useStore';
 import Link from 'next/link';
@@ -9,26 +9,24 @@ export default function SingularPost() {
   const { query } = useRouter();
   const { blogpostId } = query;
 
-  const blogposts = useStore(store => store.blogposts);
-
-  const [post, setPost] = useState(null);
+  const setActivePost = useStore(store => store.setActivePost);
+  const activePost = useStore(store => store.activePost);
 
   useEffect(() => {
-    const postToFind = blogposts.find(post => post.id === blogpostId);
-    setPost(postToFind);
-  }, [blogpostId, blogposts]);
+    setActivePost(blogpostId);
+  }, [setActivePost, blogpostId]);
 
   return (
     <article>
-      {(post === null || post === undefined) && (
+      {(activePost === null || activePost === undefined) && (
         <Typography
           sx={{ fontSize: 32, fontWeight: 700, textAlign: 'center' }}
           variant="h3"
         >
-          {post === null ? 'Loading…' : 'Post not found!'}
+          {activePost === null ? 'Loading…' : 'Post not found!'}
         </Typography>
       )}
-      {post && <Blogpost post={post} />}
+      {activePost && <Blogpost post={activePost} />}
       <Link href="/">Home</Link> <Link href="/blog/create">Create Post</Link>
     </article>
   );
