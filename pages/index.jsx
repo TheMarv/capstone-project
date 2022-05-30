@@ -4,9 +4,7 @@ import Blogpost from '../components/Blogpost';
 import useStore from '../hooks/useStore';
 
 export default function Home() {
-  const blogposts = useStore(store =>
-    store.blogposts.sort((a, b) => b.created - a.created)
-  );
+  const blogposts = useStore(store => store.blogposts);
 
   return (
     <Grid
@@ -16,13 +14,15 @@ export default function Home() {
       justify="center"
       direction="column"
     >
-      {blogposts.map(post => {
-        return (
-          <Grid item key={post.id}>
-            <Blogpost post={post} slice />
-          </Grid>
-        );
-      })}
+      {blogposts
+        .sort((a, b) => b.created - a.created)
+        .map(post => {
+          return (
+            <Grid item key={post.id}>
+              <Blogpost post={post} slice />
+            </Grid>
+          );
+        })}
       <Link href="/blog/create">Create</Link>
     </Grid>
   );

@@ -7,7 +7,6 @@ import {
   Typography,
 } from '@mui/material';
 import { Send } from '@mui/icons-material';
-import { nanoid } from 'nanoid';
 import { useState } from 'react';
 import Link from 'next/link';
 import useStore from '../../hooks/useStore';
@@ -24,12 +23,7 @@ export default function Create() {
 
   function submitForm(event) {
     event.preventDefault();
-    const id = nanoid();
-    addBlogpost({
-      id,
-      ...formState,
-      created: new Date(),
-    });
+    const id = addBlogpost(formState);
     setFormState({
       title: '',
       content: '',
