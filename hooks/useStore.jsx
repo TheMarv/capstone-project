@@ -30,7 +30,7 @@ const useStore = create(
         },
       };
     },
-    { name: 'blog', getStorage: () => sessionStorage }
+    { name: 'blog' }
   )
 );
 
