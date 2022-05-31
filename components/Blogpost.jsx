@@ -17,7 +17,7 @@ export default function Blogpost({ post, slice = false }) {
           {title}
         </Typography>
         <Typography variant="caption">
-          {format(created, 'MM/dd/yyyy hh:mm')}
+          {format(new Date(created), 'MM/dd/yyyy hh:mm')}
         </Typography>
       </Grid>
       <Grid item>
