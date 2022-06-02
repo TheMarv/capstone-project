@@ -8,6 +8,7 @@ const useStore = create(
       return {
         blogposts: [],
         activePost: null,
+        categories: [],
         addBlogpost: newPost => {
           const id = nanoid();
           set(state => {
@@ -27,6 +28,13 @@ const useStore = create(
             };
           });
           return get().activePost;
+        },
+        addCategory: newCategory => {
+          set(state => {
+            return {
+              categories: [...state.categories, { ...newCategory }],
+            };
+          });
         },
       };
     },
