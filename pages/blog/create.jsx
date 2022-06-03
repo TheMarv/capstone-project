@@ -1,4 +1,5 @@
 import {
+  Autocomplete,
   Box,
   Button,
   Container,
@@ -17,9 +18,18 @@ export default function Create() {
   const [formState, setFormState] = useState({
     title: '',
     content: '',
+    category: '',
   });
 
   const addBlogpost = useStore(store => store.addBlogpost);
+  const categories = useStore(store =>
+    store.categories.map(category => {
+      return {
+        label: category.name,
+        value: category.slug,
+      };
+    })
+  );
 
   function submitForm(event) {
     event.preventDefault();
@@ -27,6 +37,7 @@ export default function Create() {
     setFormState({
       title: '',
       content: '',
+      category: '',
     });
     router.push(`/blog/${id}`);
   }
@@ -73,6 +84,19 @@ export default function Create() {
               onChange={event =>
                 setFormState({ ...formState, content: event.target.value })
               }
+            />
+          </Grid>
+          <Grid item>
+            <Autocomplete
+              disablePortal
+              name="category"
+              options={categories}
+              value={formState.category}
+              onChange={(event, newValue) => {
+                console.log(event, newValue);
+                setFormState({ ...formState, category: newValue.value });
+              }}
+              renderInput={params => <TextField {...params} label="Category" />}
             />
           </Grid>
           <Grid item>
