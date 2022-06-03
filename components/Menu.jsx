@@ -3,18 +3,9 @@ import {
   Edit as EditIcon,
   Class as ClassIcon,
 } from '@mui/icons-material';
-import {
-  Box,
-  Divider,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-} from '@mui/material';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { Box, Divider } from '@mui/material';
 import useStore from '../hooks/useStore';
+import MenuList from './MenuList';
 
 const mainItems = [
   {
@@ -40,20 +31,6 @@ const adminItems = [
   },
 ];
 
-function MenuList(item) {
-  const { asPath } = useRouter();
-  return (
-    <ListItem key={item.id} disablePadding selected={asPath === item.href}>
-      <Link href={item.href}>
-        <ListItemButton>
-          <ListItemIcon>{item.icon}</ListItemIcon>
-          <ListItemText>{item.text}</ListItemText>
-        </ListItemButton>
-      </Link>
-    </ListItem>
-  );
-}
-
 export default function Menu() {
   const categories = useStore(state =>
     state.categories.map(category => {
@@ -68,11 +45,11 @@ export default function Menu() {
 
   return (
     <Box role="presentation" sx={{ minWidth: 250 }}>
-      <List>{mainItems.map(MenuList)}</List>
+      <MenuList menuItems={mainItems} />
       <Divider />
-      <List>{categories && categories.map(MenuList)}</List>
+      {categories && <MenuList menuItems={categories} />}
       <Divider />
-      <List>{adminItems.map(MenuList)}</List>
+      <MenuList menuItems={adminItems} />
     </Box>
   );
 }
