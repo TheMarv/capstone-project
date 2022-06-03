@@ -47,69 +47,39 @@ const adminItems = [
   },
 ];
 
-export default function Menu({ toggleMenu }) {
-  const categories = useStore(state => state.categories);
+function MenuList(item) {
   const { asPath } = useRouter();
+  return (
+    <ListItem key={item.id} disablePadding selected={asPath === item.href}>
+      <Link href={item.href}>
+        <ListItemButton>
+          <ListItemIcon>{item.icon}</ListItemIcon>
+          <ListItemText>{item.text}</ListItemText>
+        </ListItemButton>
+      </Link>
+    </ListItem>
+  );
+}
+
+export default function Menu() {
+  const categories = useStore(state =>
+    state.categories?.map(category => {
+      return {
+        id: category.slug,
+        href: `/categories/${category.slug}`,
+        text: category.name,
+        icon: null,
+      };
+    })
+  );
 
   return (
-    <Box
-      role="presentation"
-      onClick={toggleMenu}
-      onKeyDown={toggleMenu}
-      sx={{ minWidth: 250 }}
-    >
-      <List>
-        {mainItems.map(item => (
-          <ListItem
-            key={item.id}
-            disablePadding
-            selected={asPath === item.href}
-          >
-            <Link href={item.href}>
-              <ListItemButton>
-                {item.icon && <ListItemIcon>{item.icon}</ListItemIcon>}
-                <ListItemText>{item.text}</ListItemText>
-              </ListItemButton>
-            </Link>
-          </ListItem>
-        ))}
-      </List>
+    <Box role="presentation" sx={{ minWidth: 250 }}>
+      <List>{mainItems.map(MenuList)}</List>
       <Divider />
-      <List>
-        {categories &&
-          categories.map(category => (
-            <ListItem
-              key={category.slug}
-              disablePadding
-              selected={asPath === `/categories/${category.slug}`}
-            >
-              <Link href={`/categories/${category.slug}`}>
-                <ListItemButton>
-                  {/* TODO: Implement dynamic category icon */}
-                  <ListItemIcon />
-                  <ListItemText>{category.name}</ListItemText>
-                </ListItemButton>
-              </Link>
-            </ListItem>
-          ))}
-      </List>
+      <List>{categories && categories.map(MenuList)}</List>
       <Divider />
-      <List>
-        {adminItems.map(item => (
-          <ListItem
-            key={item.id}
-            disablePadding
-            selected={asPath === item.href}
-          >
-            <Link href={item.href}>
-              <ListItemButton>
-                {item.icon && <ListItemIcon>{item.icon}</ListItemIcon>}
-                <ListItemText>{item.text}</ListItemText>
-              </ListItemButton>
-            </Link>
-          </ListItem>
-        ))}
-      </List>
+      <List>{adminItems.map(MenuList)}</List>
     </Box>
   );
 }
