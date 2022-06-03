@@ -1,6 +1,5 @@
 import {
   Article as ArticleIcon,
-  Home as HomeIcon,
   Edit as EditIcon,
   Class as ClassIcon,
 } from '@mui/icons-material';
@@ -20,12 +19,6 @@ import useStore from '../hooks/useStore';
 const mainItems = [
   {
     id: 0,
-    text: 'Home',
-    href: '/',
-    icon: <HomeIcon />,
-  },
-  {
-    id: 1,
     text: 'All Blogposts',
     href: '/',
     icon: <ArticleIcon />,
@@ -63,7 +56,7 @@ function MenuList(item) {
 
 export default function Menu() {
   const categories = useStore(state =>
-    state.categories?.map(category => {
+    state.categories.map(category => {
       return {
         id: category.slug,
         href: `/categories/${category.slug}`,
