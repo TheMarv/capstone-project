@@ -20,7 +20,6 @@ export default function Create() {
     content: '',
     category: '',
   });
-
   const addBlogpost = useStore(store => store.addBlogpost);
   const categories = useStore(store =>
     store.categories.map(category => {
@@ -33,6 +32,7 @@ export default function Create() {
 
   function submitForm(event) {
     event.preventDefault();
+    return console.log(formState);
     const id = addBlogpost(formState);
     setFormState({
       title: '',
@@ -90,13 +90,19 @@ export default function Create() {
             <Autocomplete
               disablePortal
               name="category"
-              options={categories}
               value={formState.category}
+              options={[{ label: 'Uncategorised', value: '' }, ...categories]}
+              isOptionEqualToValue={(option, value) => option.value === value}
               onChange={(event, newValue) => {
-                console.log(event, newValue);
                 setFormState({ ...formState, category: newValue.value });
               }}
-              renderInput={params => <TextField {...params} label="Category" />}
+              renderInput={params => (
+                <TextField
+                  {...params}
+                  label="Category"
+                  defaultValue="Uncategorised"
+                />
+              )}
             />
           </Grid>
           <Grid item>
