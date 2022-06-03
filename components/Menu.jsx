@@ -14,6 +14,7 @@ import {
   ListItemText,
 } from '@mui/material';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import useStore from '../hooks/useStore';
 
 const mainItems = [
@@ -48,6 +49,7 @@ const adminItems = [
 
 export default function Menu({ toggleMenu }) {
   const categories = useStore(state => state.categories);
+  const { asPath } = useRouter();
 
   return (
     <Box
@@ -58,7 +60,11 @@ export default function Menu({ toggleMenu }) {
     >
       <List>
         {mainItems.map(item => (
-          <ListItem key={item.id} disablePadding>
+          <ListItem
+            key={item.id}
+            disablePadding
+            selected={asPath === item.href}
+          >
             <Link href={item.href}>
               <ListItemButton>
                 {item.icon && <ListItemIcon>{item.icon}</ListItemIcon>}
@@ -72,7 +78,11 @@ export default function Menu({ toggleMenu }) {
       <List>
         {categories &&
           categories.map(category => (
-            <ListItem key={category.slug} disablePadding>
+            <ListItem
+              key={category.slug}
+              disablePadding
+              selected={asPath === `/categories/${category.slug}`}
+            >
               <Link href={`/categories/${category.slug}`}>
                 <ListItemButton>
                   {/* TODO: Implement dynamic category icon */}
@@ -86,7 +96,11 @@ export default function Menu({ toggleMenu }) {
       <Divider />
       <List>
         {adminItems.map(item => (
-          <ListItem key={item.id} disablePadding>
+          <ListItem
+            key={item.id}
+            disablePadding
+            selected={asPath === item.href}
+          >
             <Link href={item.href}>
               <ListItemButton>
                 {item.icon && <ListItemIcon>{item.icon}</ListItemIcon>}

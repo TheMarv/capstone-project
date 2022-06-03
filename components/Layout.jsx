@@ -23,7 +23,7 @@ export default function Layout({ children }) {
         onClick={toggleMenu}
         onKeyDown={toggleMenu}
       >
-        <Menu />
+        <Menu toggleMenu={toggleMenu} />
       </SwipeableDrawer>
       <Box sx={{ my: 4 }}>
         <main>{children}</main>
