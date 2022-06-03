@@ -1,9 +1,8 @@
-import {
-  Article as ArticleIcon,
-  Edit as EditIcon,
-  Class as ClassIcon,
-} from '@mui/icons-material';
-import { Box, Divider } from '@mui/material';
+import ArticleIcon from '@mui/icons-material/Article';
+import EditIcon from '@mui/icons-material/Edit';
+import ClassIcon from '@mui/icons-material/Class';
+import Box from '@mui/material/Box';
+import Divider from '@mui/material/Divider';
 import useStore from '../hooks/useStore';
 import MenuList from './MenuList';
 

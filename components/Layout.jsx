@@ -1,5 +1,8 @@
-import { Menu as MenuIcon } from '@mui/icons-material';
-import { Box, Button, Container, SwipeableDrawer } from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import { useState } from 'react';
 import Menu from './Menu';
 
@@ -13,8 +16,7 @@ export default function Layout({ children }) {
   return (
     <Container maxWidth="sm">
       {/* TODO: Move Toggle Menu button to a header */}
-      <Button variant="contained" onClick={toggleMenu}>
-        <MenuIcon />
+      <Button variant="contained" onClick={toggleMenu} startIcon={MenuIcon}>
         Toggle Menu
       </Button>
       <SwipeableDrawer
@@ -25,8 +27,8 @@ export default function Layout({ children }) {
       >
         <Menu toggleMenu={toggleMenu} />
       </SwipeableDrawer>
-      <Box sx={{ my: 4 }}>
-        <main>{children}</main>
+      <Box component="main" sx={{ my: 4 }}>
+        {children}
       </Box>
     </Container>
   );
