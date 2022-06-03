@@ -16,7 +16,7 @@ export default function Layout({ children }) {
   return (
     <Container maxWidth="sm">
       {/* TODO: Move Toggle Menu button to a header */}
-      <Button variant="contained" onClick={toggleMenu} startIcon={MenuIcon}>
+      <Button variant="contained" onClick={toggleMenu} startIcon={<MenuIcon />}>
         Toggle Menu
       </Button>
       <SwipeableDrawer
@@ -25,7 +25,7 @@ export default function Layout({ children }) {
         onClick={toggleMenu}
         onKeyDown={toggleMenu}
       >
-        <Menu toggleMenu={toggleMenu} />
+        <Menu />
       </SwipeableDrawer>
       <Box component="main" sx={{ my: 4 }}>
         {children}
