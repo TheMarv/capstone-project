@@ -1,17 +1,15 @@
-import {
-  Autocomplete,
-  Box,
-  Button,
-  Container,
-  Grid,
-  TextField,
-  Typography,
-} from '@mui/material';
-import { Send } from '@mui/icons-material';
-import { useState } from 'react';
+import Autocomplete from '@mui/material/Autocomplete';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import SendIcon from '@mui/icons-material/Send';
 import Link from 'next/link';
-import useStore from '../../hooks/useStore';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
+import useStore from '../../hooks/useStore';
 
 export default function Create() {
   const router = useRouter();
@@ -106,9 +104,8 @@ export default function Create() {
             />
           </Grid>
           <Grid item>
-            <Button variant="contained" type="submit">
+            <Button variant="contained" type="submit" endIcon={<SendIcon />}>
               Submit
-              <Send sx={{ marginLeft: 1 }} />
             </Button>
           </Grid>
         </Grid>
