@@ -18,6 +18,11 @@ export default function Create() {
     content: '',
     category: '',
   });
+  const [categoryState, setCategoryState] = useState({
+    label: 'Uncategorized',
+    value: '',
+  });
+
   const addBlogpost = useStore(store => store.addBlogpost);
   const categories = useStore(store =>
     store.categories.map(category => {
@@ -30,8 +35,7 @@ export default function Create() {
 
   function submitForm(event) {
     event.preventDefault();
-    return console.log(formState);
-    const id = addBlogpost(formState);
+    const id = addBlogpost({ ...formState, category: categoryState.value });
     setFormState({
       title: '',
       content: '',
@@ -88,17 +92,17 @@ export default function Create() {
             <Autocomplete
               disablePortal
               name="category"
-              value={formState.category}
               options={[{ label: 'Uncategorised', value: '' }, ...categories]}
               isOptionEqualToValue={(option, value) => option.value === value}
               onChange={(event, newValue) => {
-                setFormState({ ...formState, category: newValue.value });
+                setCategoryState(newValue);
               }}
               renderInput={params => (
                 <TextField
                   {...params}
                   label="Category"
                   defaultValue="Uncategorised"
+                  value={categoryState.label}
                 />
               )}
             />

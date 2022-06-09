@@ -1,8 +1,13 @@
 import { Grid, Typography } from '@mui/material';
 import { format } from 'date-fns';
+import useStore from '../hooks/useStore';
 
 export default function Blogpost({ post, slice = false }) {
-  const { title, content, created } = post;
+  const { title, content, created, category: categorySlug } = post;
+
+  const category = useStore(state =>
+    state.categories.find(category => category.slug === categorySlug)
+  );
 
   return (
     <Grid
@@ -18,6 +23,9 @@ export default function Blogpost({ post, slice = false }) {
         </Typography>
         <Typography variant="caption">
           {format(new Date(created), 'MM/dd/yyyy hh:mm')}
+        </Typography>
+        <Typography component="p" variant="caption">
+          {category && category.name}
         </Typography>
       </Grid>
       <Grid item>
