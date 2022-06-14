@@ -1,13 +1,15 @@
-import { Typography } from '@mui/material';
-import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import Blogpost from '../../components/Blogpost';
+import { useRouter } from 'next/router';
 import useStore from '../../hooks/useStore';
-import Link from 'next/link';
+import Blogpost from '../../components/Blogpost';
+import Typography from '@mui/material/Typography';
+import useHydration from '../../hooks/useHydration';
 
 export default function SingularPost() {
   const { query } = useRouter();
   const { blogpostId } = query;
+
+  const isHydrated = useHydration();
 
   const setActivePost = useStore(store => store.setActivePost);
   const activePost = useStore(store => store.activePost);
@@ -17,17 +19,20 @@ export default function SingularPost() {
   }, [setActivePost, blogpostId]);
 
   return (
-    <article>
-      {(activePost === null || activePost === undefined) && (
-        <Typography
-          sx={{ fontSize: 32, fontWeight: 700, textAlign: 'center' }}
-          variant="h3"
-        >
-          {activePost === null ? 'Loading…' : 'Post not found!'}
-        </Typography>
+    <>
+      {isHydrated && (
+        <section>
+          {(activePost === null || activePost === undefined) && (
+            <Typography
+              sx={{ fontSize: 32, fontWeight: 700, textAlign: 'center' }}
+              variant="h3"
+            >
+              {activePost === null ? 'Loading…' : 'Post not found!'}
+            </Typography>
+          )}
+          {activePost && <Blogpost post={activePost} />}
+        </section>
       )}
-      {activePost && <Blogpost post={activePost} />}
-      <Link href="/">Home</Link> <Link href="/blog/create">Create Post</Link>
-    </article>
+    </>
   );
 }
