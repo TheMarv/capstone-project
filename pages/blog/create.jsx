@@ -12,7 +12,7 @@ import { useState } from 'react';
 import useStore from '../../hooks/useStore';
 
 export default function Create() {
-  const router = useRouter();
+  const { push: routerPush } = useRouter();
   const [formState, setFormState] = useState({
     title: '',
     content: '',
@@ -41,7 +41,7 @@ export default function Create() {
       content: '',
       category: '',
     });
-    router.push(`/blog/${id}`);
+    routerPush(`/blog/${id}`);
   }
 
   return (

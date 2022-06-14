@@ -6,8 +6,11 @@ import useStore from '../hooks/useStore';
 export default function Blogpost({ post, slice = false }) {
   const { title, content, created, category: categorySlug } = post;
 
-  const category = useStore(state =>
-    state.categories.find(category => category.slug === categorySlug)
+  const category = useStore(
+    state =>
+      state.categories.find(category => category.slug === categorySlug) || {
+        name: 'Uncategorized',
+      }
   );
 
   return (
