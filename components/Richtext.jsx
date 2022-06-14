@@ -48,7 +48,9 @@ export default function Richtext({ value, onChange }) {
         modules={modules}
         value={value}
         onChange={onChange}
-        style={{ height: editorHeight - 44 }}
+        style={{
+          height: editorHeight - 44 /* 44 is the height of the toolbox */,
+        }}
       />
     </StyledEditor>
   );
@@ -57,6 +59,6 @@ export default function Richtext({ value, onChange }) {
 const StyledEditor = styled.div`
   height: ${editorHeight}px;
   .quill > .ql-toolbar:nth-child(2) {
-    display: none !important;
+    display: none !important; /* required because sometimes quill will double the toolbox */
   }
 `;

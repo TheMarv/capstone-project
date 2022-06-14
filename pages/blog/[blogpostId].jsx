@@ -22,7 +22,7 @@ export default function SingularPost() {
     <>
       {isHydrated && (
         <section>
-          {(activePost === null || activePost === undefined) && (
+          {!activePost && (
             <Typography
               sx={{ fontSize: 32, fontWeight: 700, textAlign: 'center' }}
               variant="h3"

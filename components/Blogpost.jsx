@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { format } from 'date-fns';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
@@ -36,9 +37,9 @@ export default function Blogpost({ post, slice = false }) {
 const StyledContent = styled.div`
   ${({ slice }) =>
     slice &&
-    `
-    max-height: 4ch;
-    overflow: hidden;
-    margin-bottom: 2rem;
-  `}
+    css`
+      max-height: 4ch;
+      overflow: hidden;
+      margin-bottom: 2rem;
+    `}
 `;
