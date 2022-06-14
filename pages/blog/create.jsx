@@ -8,26 +8,42 @@ import Send from '@mui/icons-material/Send';
 import useStore from '../../hooks/useStore';
 import TextField from '@mui/material/TextField';
 import Container from '@mui/material/Container';
+import SendIcon from '@mui/icons-material/Send';
 import Richtext from '../../components/Richtext';
 import Typography from '@mui/material/Typography';
+import Autocomplete from '@mui/material/Autocomplete';
 
 export default function Create() {
-  const router = useRouter();
+  const { push: routerPush } = useRouter();
   const [formState, setFormState] = useState({
     title: '',
     content: '',
+    category: '',
+  });
+  const [categoryState, setCategoryState] = useState({
+    label: 'Uncategorized',
+    value: '',
   });
 
   const addBlogpost = useStore(store => store.addBlogpost);
+  const categories = useStore(store =>
+    store.categories.map(category => {
+      return {
+        label: category.name,
+        value: category.slug,
+      };
+    })
+  );
 
   function submitForm(event) {
     event.preventDefault();
-    const id = addBlogpost(formState);
+    const id = addBlogpost({ ...formState, category: categoryState.value });
     setFormState({
       title: '',
       content: '',
+      category: '',
     });
-    router.push(`/blog/${id}`);
+    routerPush(`/blog/${id}`);
   }
 
   return (
@@ -73,9 +89,27 @@ export default function Create() {
             />
           </Grid>
           <Grid item>
-            <Button variant="contained" type="submit">
+            <Autocomplete
+              disablePortal
+              name="category"
+              options={[{ label: 'Uncategorised', value: '' }, ...categories]}
+              isOptionEqualToValue={(option, value) => option.value === value}
+              onChange={(event, newValue) => {
+                setCategoryState(newValue);
+              }}
+              renderInput={params => (
+                <TextField
+                  {...params}
+                  label="Category"
+                  defaultValue="Uncategorised"
+                  value={categoryState.label}
+                />
+              )}
+            />
+          </Grid>
+          <Grid item>
+            <Button variant="contained" type="submit" endIcon={<SendIcon />}>
               Submit
-              <Send sx={{ marginLeft: 1 }} />
             </Button>
           </Grid>
         </Grid>

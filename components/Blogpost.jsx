@@ -3,10 +3,17 @@ import { format } from 'date-fns';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import Grid from '@mui/material/Grid';
+import useStore from '../hooks/useStore';
 import Typography from '@mui/material/Typography';
 
 export default function Blogpost({ post, slice = false }) {
-  const { title, content, created, id } = post;
+  const { title, content, created, id, category: categorySlug } = post;
+  const category = useStore(
+    state =>
+      state.categories.find(category => category.slug === categorySlug) || {
+        name: 'Uncategorized',
+      }
+  );
 
   return (
     <Grid
@@ -22,6 +29,9 @@ export default function Blogpost({ post, slice = false }) {
         </Typography>
         <Typography variant="caption">
           {format(new Date(created), 'MM/dd/yyyy hh:mm')}
+        </Typography>
+        <Typography component="p" variant="caption">
+          {category && category.name}
         </Typography>
       </Grid>
       <Grid item>
