@@ -1,16 +1,15 @@
-import {
-  Box,
-  Button,
-  Container,
-  Grid,
-  TextField,
-  Typography,
-} from '@mui/material';
-import { Send } from '@mui/icons-material';
-import { useState } from 'react';
 import Link from 'next/link';
-import useStore from '../../hooks/useStore';
+import { useState } from 'react';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
 import { useRouter } from 'next/router';
+import Button from '@mui/material/Button';
+import Send from '@mui/icons-material/Send';
+import useStore from '../../hooks/useStore';
+import TextField from '@mui/material/TextField';
+import Container from '@mui/material/Container';
+import Richtext from '../../components/Richtext';
+import Typography from '@mui/material/Typography';
 
 export default function Create() {
   const router = useRouter();
@@ -55,23 +54,21 @@ export default function Create() {
               inputProps={{ maxLength: 100, minLength: 5 }}
               value={formState.title}
               onChange={event =>
-                setFormState({ ...formState, title: event.target.value })
+                setFormState({
+                  title: event.target.value,
+                  content: formState.content,
+                })
               }
             />
           </Grid>
           <Grid item>
-            <TextField
-              name="content"
-              label="Post content"
-              type="text"
-              rows={5}
-              multiline
-              fullWidth
-              required
-              inputProps={{ maxLength: 5000, minLength: 10 }}
+            <Richtext
               value={formState.content}
-              onChange={event =>
-                setFormState({ ...formState, content: event.target.value })
+              onChange={input =>
+                setFormState({
+                  title: formState.title,
+                  content: input,
+                })
               }
             />
           </Grid>
