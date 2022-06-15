@@ -22,6 +22,7 @@ export default function Notifications() {
             autoHideDuration={4500}
             open={true}
             onClose={() => handleClose(alert.id)}
+            anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }}
           >
             <Alert
               severity={alert.severity}
