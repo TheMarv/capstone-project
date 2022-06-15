@@ -1,6 +1,7 @@
+import Header from './Header';
+import Snackbar from './Snackbar';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-import Header from './Header';
 
 export default function Layout({ children }) {
   return (
@@ -9,6 +10,7 @@ export default function Layout({ children }) {
       <Box component="main" sx={{ marginTop: 9, px: 1 }}>
         {children}
       </Box>
+      <Snackbar />
     </Container>
   );
 }

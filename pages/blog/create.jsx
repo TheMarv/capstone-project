@@ -4,7 +4,6 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { useRouter } from 'next/router';
 import Button from '@mui/material/Button';
-import Send from '@mui/icons-material/Send';
 import useStore from '../../hooks/useStore';
 import TextField from '@mui/material/TextField';
 import Container from '@mui/material/Container';
@@ -25,9 +24,10 @@ export default function Create() {
     value: '',
   });
 
-  const addBlogpost = useStore(store => store.addBlogpost);
-  const categories = useStore(store =>
-    store.categories.map(category => {
+  const addAlert = useStore(state => state.addAlert);
+  const addBlogpost = useStore(state => state.addBlogpost);
+  const categories = useStore(state =>
+    state.categories.map(category => {
       return {
         label: category.name,
         value: category.slug,
@@ -44,6 +44,7 @@ export default function Create() {
       category: '',
     });
     routerPush(`/blog/${id}`);
+    addAlert('Post published successfully!', 'success');
   }
 
   return (

@@ -9,6 +9,7 @@ const useStore = create(
         blogposts: [],
         activePost: null,
         categories: [],
+        alerts: [],
         addBlogpost: newPost => {
           const id = nanoid();
           set(state => {
@@ -36,9 +37,29 @@ const useStore = create(
             };
           });
         },
+        addAlert: (message, severity) => {
+          set(state => {
+            return {
+              alerts: [...state.alerts, { id: nanoid(), severity, message }],
+            };
+          });
+        },
+        removeAlert: id => {
+          set(state => {
+            return {
+              alerts: state.alerts.filter(alert => alert.id !== id),
+            };
+          });
+        },
       };
     },
-    { name: 'blog' }
+    {
+      name: 'blog',
+      partialize: state =>
+        Object.fromEntries(
+          Object.entries(state).filter(([key]) => key !== 'alerts')
+        ),
+    }
   )
 );
 
