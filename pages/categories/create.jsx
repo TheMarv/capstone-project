@@ -19,11 +19,13 @@ export default function CategoryCreate() {
   });
 
   const addCategory = useStore(state => state.addCategory);
+  const addAlert = useStore(state => state.addAlert);
 
   function submitForm(event) {
     event.preventDefault();
     addCategory({ name: formState.name, slug: formState.slug });
     setFormState({ name: '', slug: '', customSlug: false });
+    addAlert('Category successfully added!', 'success');
   }
 
   function onNameChange(event) {
