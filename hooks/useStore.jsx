@@ -22,6 +22,18 @@ const useStore = create(
           });
           return id;
         },
+        editBlogpost: newBlogpost => {
+          set(state => {
+            return {
+              blogposts: state.blogposts.map(post =>
+                post.id === newBlogpost.id ? newBlogpost : post
+              ),
+            };
+          });
+        },
+        findCategory: slug => {
+          return get().categories.find(category => category.slug === slug);
+        },
         removeBlogpost: id => {
           set(state => {
             return {

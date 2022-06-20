@@ -1,64 +1,51 @@
-import React from 'react';
-import dynamic from 'next/dynamic';
-import styled from '@emotion/styled';
-
-import 'react-quill/dist/quill.snow.css';
-const ReactQuill = dynamic(import('react-quill'), {
-  ssr: false,
-  loading: () => <p>Loading Editor</p>,
-});
+import React, { useRef } from 'react';
+import { Editor } from '@tinymce/tinymce-react';
 
 const editorHeight = 300;
 
 export default function Richtext({ value, onChange }) {
-  const modules = {
-    toolbar: {
-      container: [
-        [{ header: [1, 2, false] }],
-        ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-        [
-          { list: 'ordered' },
-          { list: 'bullet' },
-          { indent: '-1' },
-          { indent: '+1' },
-        ],
-        ['link'],
-        ['clean'],
-      ],
-    },
-  };
-
-  const formats = [
-    'header',
-    'bold',
-    'italic',
-    'underline',
-    'strike',
-    'blockquote',
-    'list',
-    'bullet',
-    'indent',
-    'link',
-  ];
+  const editorRef = useRef(null);
 
   return (
-    <StyledEditor>
-      <ReactQuill
-        formats={formats}
-        modules={modules}
+    <>
+      <Editor
+        onInit={(evt, editor) => (editorRef.current = editor)}
         value={value}
-        onChange={onChange}
-        style={{
-          height: editorHeight - 44 /* 44 is the height of the toolbox */,
+        init={{
+          height: editorHeight,
+          menubar: false,
+          plugins: [
+            'advlist',
+            'autolink',
+            'lists',
+            'link',
+            'charmap',
+            'preview',
+            'anchor',
+            'searchreplace',
+            'visualblocks',
+            'code',
+            'fullscreen',
+            'insertdatetime',
+            'table',
+            'code',
+            'help',
+            'wordcount',
+          ],
+          toolbar:
+            'undo redo | formatselect | achor | ' +
+            'bold italic backcolor | alignleft aligncenter ' +
+            'alignright alignjustify | bullist numlist outdent indent | ' +
+            'table | code | visualblocks | insertdatetime | ' +
+            'removeformat | help',
+          content_style:
+            'html, body { background-color: #212121; color: white; } body { font-size:14px }',
+          skin: 'oxide-dark',
         }}
+        tinymceScriptSrc={'/tinymce/tinymce.min.js'}
+        onEditorChange={input => onChange(input)}
+        id="rte"
       />
-    </StyledEditor>
+    </>
   );
 }
-
-const StyledEditor = styled.div`
-  height: ${editorHeight}px;
-  .quill > .ql-toolbar:nth-child(2) {
-    display: none !important; /* required because sometimes quill will double the toolbox */
-  }
-`;

@@ -45,15 +45,11 @@ export default function Blogposts() {
                   <TableCell>{blogpost.id}</TableCell>
                   <TableCell>{blogpost.title}</TableCell>
                   <TableCell sx={{ width: '112px' }} align="right">
-                    <IconButton
-                      color="secondary"
-                      variant="outlined"
-                      onClick={() => {
-                        addAlert('Currently not implemented', 'error');
-                      }}
-                    >
-                      <EditIcon />
-                    </IconButton>
+                    <Link href={`/blog/${blogpost.id}/edit`}>
+                      <IconButton color="secondary" variant="outlined">
+                        <EditIcon />
+                      </IconButton>
+                    </Link>
                     <IconButton
                       color="error"
                       variant="outlined"
