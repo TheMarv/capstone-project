@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
-import useStore from '../../hooks/useStore';
-import Blogpost from '../../components/Blogpost';
+import useStore from '../../../hooks/useStore';
+import Blogpost from '../../../components/Blogpost';
 import Typography from '@mui/material/Typography';
 
 export default function CategoryPage() {

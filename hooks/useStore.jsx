@@ -37,6 +37,24 @@ const useStore = create(
             };
           });
         },
+        editCategory: (newCategory, oldSlug) => {
+          set(state => {
+            return {
+              categories: state.categories.map(category =>
+                category.slug === oldSlug ? newCategory : category
+              ),
+            };
+          });
+        },
+        removeCategory: categorySlug => {
+          set(state => {
+            return {
+              categories: state.categories.filter(
+                category => category.slug !== categorySlug
+              ),
+            };
+          });
+        },
         addAlert: (message, severity) => {
           set(state => {
             return {

@@ -28,6 +28,12 @@ const adminItems = [
     href: '/categories/create',
     icon: <ClassIcon />,
   },
+  {
+    id: 2,
+    text: 'Manage Categories',
+    href: '/categories',
+    icon: <ClassIcon />,
+  },
 ];
 
 export default function Menu() {
