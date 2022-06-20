@@ -24,12 +24,18 @@ const adminItems = [
   },
   {
     id: 1,
+    text: 'Manage Blogpost',
+    href: '/blog',
+    icon: <EditIcon />,
+  },
+  {
+    id: 2,
     text: 'Create Category',
     href: '/categories/create',
     icon: <ClassIcon />,
   },
   {
-    id: 2,
+    id: 3,
     text: 'Manage Categories',
     href: '/categories',
     icon: <ClassIcon />,
