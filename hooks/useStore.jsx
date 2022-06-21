@@ -22,6 +22,13 @@ const useStore = create(
           });
           return id;
         },
+        removeBlogpost: id => {
+          set(state => {
+            return {
+              blogposts: state.blogposts.filter(post => post.id !== id),
+            };
+          });
+        },
         setActivePost: id => {
           set(state => {
             return {
