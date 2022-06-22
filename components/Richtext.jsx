@@ -58,7 +58,7 @@ export default function Richtext({ value, onChange }) {
 
 const StyledEditor = styled.div`
   height: ${editorHeight}px;
-  .quill > .ql-toolbar:nth-child(2) {
+  .quill > .ql-toolbar:first-child {
     display: none !important; /* required because sometimes quill will double the toolbox */
   }
 `;

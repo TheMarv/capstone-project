@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { useRouter } from 'next/router';
@@ -24,6 +24,8 @@ export default function Create() {
     value: '',
   });
 
+  const initialContent = 'Test';
+
   const addAlert = useStore(state => state.addAlert);
   const addBlogpost = useStore(state => state.addBlogpost);
   const categories = useStore(state =>
@@ -34,6 +36,13 @@ export default function Create() {
       };
     })
   );
+
+  useEffect(() => {
+    setFormState(previousState => ({
+      ...previousState,
+      content: initialContent,
+    }));
+  }, [initialContent]);
 
   function submitForm(event) {
     event.preventDefault();
@@ -81,12 +90,12 @@ export default function Create() {
           <Grid item>
             <Richtext
               value={formState.content}
-              onChange={input =>
+              onChange={input => {
                 setFormState({
                   title: formState.title,
                   content: input,
-                })
-              }
+                });
+              }}
             />
           </Grid>
           <Grid item>
