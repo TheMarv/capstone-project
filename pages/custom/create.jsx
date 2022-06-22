@@ -17,6 +17,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import TableFooter from '@mui/material/TableFooter';
+import Box from '@mui/system/Box';
 
 const elementList = [
   {
@@ -79,11 +80,9 @@ export default function CreateCustom() {
         </Table>
       </TableContainer>
       <Dialog open={open} onClose={() => setOpen(false)}>
-        <DialogTitle>Do you wish to remove {blogpost.title}?</DialogTitle>
+        <DialogTitle>Add a new element</DialogTitle>
         <DialogContent>
-          Please confirm that you are sure to delete the Post
-          {blogpost.title}. If you are certain, proceed to click the
-          `Delete`-Button. Otherwise, click the `Cancel`-Button.
+          <Box component="form"></Box>
         </DialogContent>
         <DialogActions>
           <Button
