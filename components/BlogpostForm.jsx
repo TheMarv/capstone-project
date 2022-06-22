@@ -56,7 +56,6 @@ export default function BlogpostForm({ id = null }) {
   function submitForm(event) {
     event.preventDefault();
     addAlert(`Post ${id ? 'updated' : 'published'} successfully!`, 'success');
-    console.log(formState);
     if (id) {
       editBlogpost({
         ...currentBlogpost,
