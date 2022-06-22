@@ -1,4 +1,3 @@
-import Richtext from './Richtext';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { useRouter } from 'next/router';
@@ -8,6 +7,11 @@ import { useEffect, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import SendIcon from '@mui/icons-material/Send';
 import Autocomplete from '@mui/material/Autocomplete';
+import dynamic from 'next/dynamic';
+
+const Richtext = dynamic(async () => await import('./Richtext'), {
+  ssr: false,
+});
 
 export default function BlogpostForm({ id = null }) {
   const { push: routerPush } = useRouter();
