@@ -10,6 +10,7 @@ const useStore = create(
         activePost: null,
         categories: [],
         alerts: [],
+        customs: [],
         addBlogpost: newPost => {
           const id = nanoid();
           set(state => {
@@ -85,6 +86,37 @@ const useStore = create(
           set(state => {
             return {
               alerts: state.alerts.filter(alert => alert.id !== id),
+            };
+          });
+        },
+        addCustom: newCustom => {
+          if (get().findCustom(newCustom.name)) {
+            return false;
+          }
+          set(state => {
+            return {
+              customs: [
+                ...state.customs,
+                { id: nanoid(), ...newCustom, entries: [] },
+              ],
+            };
+          });
+          return true;
+        },
+        findCustom: name => {
+          return get().customs.find(custom => custom.name === name);
+        },
+        addCustomEntry: (customName, entry) => {
+          set(state => {
+            return {
+              customs: state.customs.map(custom =>
+                custom.name === customName
+                  ? {
+                      ...custom,
+                      entries: [...custom.entries, { ...entry, id: nanoid() }],
+                    }
+                  : custom
+              ),
             };
           });
         },
