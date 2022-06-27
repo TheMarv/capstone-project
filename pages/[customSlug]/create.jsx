@@ -22,7 +22,7 @@ export default function CreateCustomEntry() {
 
   function submitForm(event) {
     event.preventDefault();
-    addCustomEntry(formState);
+    addCustomEntry(customSlug, formState);
     addAlert(`Added entry to ${customSlug}`, 'success');
     const entries = Object.entries(formState).map(entry => [entry[0], '']);
     setFormState(Object.fromEntries(entries));

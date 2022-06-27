@@ -1,6 +1,9 @@
 import { useRouter } from 'next/router';
 import useStore from '../../hooks/useStore';
 import Typography from '@mui/material/Typography';
+import Link from 'next/link';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 
 export default function CustomSingular() {
   const { query } = useRouter();
@@ -24,8 +27,17 @@ export default function CustomSingular() {
       </Typography>
       {custom &&
         custom.entries.map(entry => (
-          <Typography variant="p">{JSON.stringify(entry, null, 2)}</Typography>
+          <Typography key={entry.id} component="p">
+            {JSON.stringify(entry, null, 2)}
+          </Typography>
         ))}
+      <Link href={`${customSlug}/create`}>
+        <Box display="flex" justifyContent="center" sx={{ marginTop: 2 }}>
+          <Button variant="contained" color="primary">
+            Add entry
+          </Button>
+        </Box>
+      </Link>
     </>
   );
 }

@@ -107,6 +107,7 @@ const useStore = create(
           return get().customs.find(custom => custom.name === name);
         },
         addCustomEntry: (customName, entry) => {
+          console.log(customName, entry);
           set(state => {
             return {
               customs: state.customs.map(custom =>

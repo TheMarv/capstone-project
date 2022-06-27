@@ -1,6 +1,7 @@
 import ArticleIcon from '@mui/icons-material/Article';
 import EditIcon from '@mui/icons-material/Edit';
 import ClassIcon from '@mui/icons-material/Class';
+import DashboardCustomizeIcon from '@mui/icons-material/DashboardCustomize';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import useStore from '../hooks/useStore';
@@ -40,6 +41,12 @@ const adminItems = [
     href: '/categories',
     icon: <ClassIcon />,
   },
+  {
+    id: 4,
+    text: 'Create Custom',
+    href: '/custom/create',
+    icon: <DashboardCustomizeIcon />,
+  },
 ];
 
 export default function Menu() {
@@ -54,11 +61,24 @@ export default function Menu() {
     })
   );
 
+  const customs = useStore(state =>
+    state.customs.map(custom => {
+      return {
+        id: custom.name,
+        href: `/${custom.name}`,
+        text: custom.name,
+        icon: null,
+      };
+    })
+  );
+
   return (
     <Box role="presentation" sx={{ minWidth: 250 }}>
       <MenuList menuItems={mainItems} />
       <Divider />
       {categories && <MenuList menuItems={categories} />}
+      <Divider />
+      {customs && <MenuList menuItems={customs} extended />}
       <Divider />
       <MenuList menuItems={adminItems} />
     </Box>

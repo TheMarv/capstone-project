@@ -52,6 +52,8 @@ export default function Header() {
         open={menuOpen}
         onClick={toggleMenu}
         onKeyDown={toggleMenu}
+        onOpen={() => {}}
+        onClose={() => {}}
       >
         <Menu />
       </SwipeableDrawer>
