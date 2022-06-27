@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import useStore from '../../hooks/useStore';
-import Blogpost from '../../components/Blogpost';
+import useStore from '../../../hooks/useStore';
+import Blogpost from '../../../components/Blogpost';
 import Typography from '@mui/material/Typography';
-import useHydration from '../../hooks/useHydration';
+import useHydration from '../../../hooks/useHydration';
 
 export default function SingularPost() {
   const { query } = useRouter();
